@@ -1,0 +1,17 @@
+model:
+  name: "llama3"
+  temperature: 0.2
+
+rag:
+  embedding_model: "all-minilm"
+  top_k: 5
+  chunk_size: 1500
+  chunk_overlap: 200
+
+paths:
+  data_folder: "./data"
+  output_folder: "./outputs"
+  vector_store: "./vector_store"
+
+logging:
+  level: "INFO"
