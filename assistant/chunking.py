@@ -20,15 +20,23 @@ def chunk_text(text: str, max_chars: int, overlap: int = 0) -> List[str]:
 
     Args:
         text: The full text to split.
-        max_chars: Maximum number of characters per chunk.
+        max_chars: Maximum number of characters per chunk. Must be positive.
         overlap: Optional number of characters to include from the end of
-            the previous chunk at the start of the next chunk.
+            the previous chunk at the start of the next chunk. Must be
+            non-negative and smaller than ``max_chars``.
 
     Returns:
         A list of text chunks.
     """
     if not text:
         return []
+
+    if max_chars <= 0:
+        raise ValueError("max_chars must be positive")
+    if overlap < 0:
+        raise ValueError("overlap must be non-negative")
+    if overlap >= max_chars:
+        raise ValueError("overlap must be smaller than max_chars to progress chunking")
 
     chunks: List[str] = []
     start = 0
