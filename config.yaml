@@ -1,5 +1,5 @@
 model:
-  name: "llama3"
+  name: "gpt-oss:20b"
   temperature: 0.2
 
 rag:
