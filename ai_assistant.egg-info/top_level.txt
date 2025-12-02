@@ -1,1 +1,4 @@
 assistant
+data
+outputs
+vector_store
