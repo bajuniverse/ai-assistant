@@ -108,7 +108,7 @@ Deliver a functional text-file summarisation pipeline for PDF, DOCX, MD, TXT via
 ---
 
 ## 11. Sprint Review
-- [ ] Demo summarising sample folder
-- [ ] Verify CLI usability
-- [ ] Validate summary quality
-- [ ] Update README if necessary
+- [x] Demo summarising sample folder
+- [x] Verify CLI usability
+- [x] Validate summary quality
+- [x] Update README if necessary

@@ -69,6 +69,9 @@ Python packages.
 From the root directory, run the CLI via `main.py`:
 
 ```bash
+# Run unit tests
+python -m unittest discover
+
 # Summarise all supported files in a folder
 python main.py summary --folder ./data
 
@@ -81,6 +84,11 @@ python main.py ingest --folder ./data
 # Ask a question over the ingested documents
 python main.py ask --question "What does the report say about sales?"
 ```
+
+### Troubleshooting
+
+- Ensure Ollama is running (`ollama serve`) and the target model (e.g. `llama3`) is pulled; otherwise summarisation and QA commands will fail with a connection error.
+- If OCR is required, confirm Tesseract is installed and available on the `PATH`.
 
 ### Configuration
 
