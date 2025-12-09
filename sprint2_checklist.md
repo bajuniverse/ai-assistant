@@ -70,7 +70,7 @@ Implement a fully functional Retrieval-Augmented Generation (RAG) pipeline, enab
 ## 8. Testing
 - [ ] Test ingestion on sample dataset
 - [ ] Test query with simple question
-- [ ] Validate answers match expected source documents
+- [x] Validate answers match expected source documents
 - [ ] Test retrieval accuracy with multiple similar documents
 - [ ] Confirm metadata (file names) are correctly returned
 
