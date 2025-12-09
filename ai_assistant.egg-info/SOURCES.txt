@@ -9,6 +9,7 @@ assistant/__init__.py
 assistant/chunking.py
 assistant/cli.py
 assistant/config.py
+assistant/embeddings.py
 assistant/file_discovery.py
 assistant/rag.py
 assistant/summarizer.py
@@ -20,3 +21,12 @@ assistant/parsers/image_parser.py
 assistant/parsers/md_parser.py
 assistant/parsers/pdf_parser.py
 assistant/parsers/txt_parser.py
+tests/__init__.py
+tests/test_chunking.py
+tests/test_cli.py
+tests/test_config.py
+tests/test_embeddings.py
+tests/test_file_discovery.py
+tests/test_ollama_client.py
+tests/test_parsers.py
+tests/test_summarizer.py

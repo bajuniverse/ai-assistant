@@ -25,10 +25,10 @@ Implement a fully functional Retrieval-Augmented Generation (RAG) pipeline, enab
 ---
 
 ## 3. Embedding System
-- [ ] Select embedding model (local or external)
-- [ ] Implement embedding wrapper
-- [ ] Validate embeddings are numeric vectors of uniform dimension
-- [ ] Handle errors gracefully when chunks are empty
+- [x] Select embedding model (local or external)
+- [x] Implement embedding wrapper
+- [x] Validate embeddings are numeric vectors of uniform dimension
+- [x] Handle errors gracefully when chunks are empty
 
 ---
 

@@ -1,7 +1,8 @@
 ollama
 chromadb
+sentence-transformers
 pymupdf
 python-docx
 pytesseract
 Pillow
-PyYAMLHow
+PyYAML

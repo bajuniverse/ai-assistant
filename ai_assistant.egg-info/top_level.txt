@@ -1,4 +1,5 @@
 assistant
 data
 outputs
+tests
 vector_store

@@ -17,6 +17,7 @@ from typing import List, Tuple
 import chromadb
 
 from .config import Config
+from .embeddings import get_embedding_function, validate_embeddings
 from .file_discovery import iter_files, is_text_file, is_image_file
 from .parsers.pdf_parser import extract_pdf_text
 from .parsers.docx_parser import extract_docx_text
@@ -47,8 +48,11 @@ def _get_chroma_collection(cfg: Config):
     """Get or create the ChromaDB collection used for document embeddings."""
     # Use a persistent client so that the vector store is saved on disk
     client = chromadb.PersistentClient(path=cfg.paths.get("vector_store", "./vector_store"))
-    collection = client.get_or_create_collection(name="documents")
-    return collection
+    embed_fn = get_embedding_function(cfg.rag.get("embedding_model"))
+    collection = client.get_or_create_collection(
+        name="documents", embedding_function=embed_fn
+    )
+    return collection, embed_fn
 
 
 def _clear_existing_for_source(collection, source: Path) -> None:
@@ -61,7 +65,7 @@ def _clear_existing_for_source(collection, source: Path) -> None:
 
 def ingest_folder(folder: Path, cfg: Config) -> None:
     """Ingest all supported files in a folder into the vector store."""
-    collection = _get_chroma_collection(cfg)
+    collection, embed_fn = _get_chroma_collection(cfg)
     rag_cfg = cfg.rag
     chunk_size: int = rag_cfg.get("chunk_size", 1500)
     overlap: int = rag_cfg.get("chunk_overlap", 200)
@@ -82,6 +86,8 @@ def ingest_folder(folder: Path, cfg: Config) -> None:
         _clear_existing_for_source(collection, f)
         chunks = chunk_text(text, max_chars=chunk_size, overlap=overlap)
         for idx, ch in enumerate(chunks):
+            if not ch.strip():
+                continue
             ids.append(f"{f.resolve()}#{idx}")
             docs.append(ch)
             metadatas.append({"source": str(f), "chunk_index": idx})
@@ -90,13 +96,20 @@ def ingest_folder(folder: Path, cfg: Config) -> None:
         print("[INGEST] No documents to ingest.")
         return
 
-    collection.add(ids=ids, documents=docs, metadatas=metadatas)
+    try:
+        embeddings = embed_fn(docs)
+        validate_embeddings(embeddings)
+    except Exception as exc:
+        print(f"[ERROR] Failed to embed documents: {exc}")
+        return
+
+    collection.add(ids=ids, documents=docs, metadatas=metadatas, embeddings=embeddings)
     print(f"[INGEST] Ingested {len(docs)} chunks from folder {folder}")
 
 
 def _retrieve(query: str, cfg: Config, top_k: int) -> List[Tuple[str, dict]]:
     """Retrieve the top-k most relevant documents from the vector store."""
-    collection = _get_chroma_collection(cfg)
+    collection, _ = _get_chroma_collection(cfg)
     results = collection.query(query_texts=[query], n_results=top_k)
     docs_list: List[List[str]] = results.get("documents", [[]])  # type: ignore[assignment]
     metas_list: List[List[dict]] = results.get("metadatas", [[]])  # type: ignore[assignment]
