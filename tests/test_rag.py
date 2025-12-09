@@ -67,6 +67,22 @@ class RagRetrievalTests(unittest.TestCase):
         self.assertIn("Question: What?", prompt)
         self.assertIn("Sources:\na.txt\nb.txt", answer)
 
+    @patch("assistant.rag.chat", return_value="answer body")
+    @patch("assistant.rag._retrieve")
+    @patch("assistant.rag.print")
+    def test_debug_logs_sources(self, mock_print, mock_retrieve, mock_chat) -> None:
+        mock_retrieve.return_value = [
+            ("doc text 1", {"source": "file1.txt", "chunk_index": 0}),
+            ("doc text 2", {"source": "file2.txt", "chunk_index": 1}),
+        ]
+        cfg = Config()
+
+        rag.answer_question("q", cfg, debug=True)
+
+        mock_print.assert_any_call("[DEBUG] Retrieved 2 chunks:")
+        mock_print.assert_any_call("[DEBUG] file1.txt (chunk 0)")
+        mock_print.assert_any_call("[DEBUG] file2.txt (chunk 1)")
+
 
 if __name__ == "__main__":
     unittest.main()

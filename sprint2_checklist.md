@@ -17,7 +17,7 @@ Implement a fully functional Retrieval-Augmented Generation (RAG) pipeline, enab
 - [x] Implement ingestion entry function `ingest_folder()`
 - [x] Parse all supported files (PDF, DOCX, MD, TXT, OCR images)
 - [x] Convert extracted text into chunks using existing chunker
-- [X] Embed each chunk into vector format
+- [x] Embed each chunk into vector format
 - [x] Store (id, document text, metadata, embedding) in Chroma
 - [x] Ensure ingestion can run repeatedly without duplication issues
 - [x] Add helpful ingestion logging (file count, chunk count, etc.)
@@ -25,18 +25,18 @@ Implement a fully functional Retrieval-Augmented Generation (RAG) pipeline, enab
 ---
 
 ## 3. Embedding System
-- [ ] Select embedding model (local or external)
-- [ ] Implement embedding wrapper
-- [ ] Validate embeddings are numeric vectors of uniform dimension
-- [ ] Handle errors gracefully when chunks are empty
+- [x] Select embedding model (local or external)
+- [x] Implement embedding wrapper
+- [x] Validate embeddings are numeric vectors of uniform dimension
+- [x] Handle errors gracefully when chunks are empty
 
 ---
 
 ## 4. Retrieval
-- [ ] Implement query embedding
+- [x] Implement query embedding
 - [x] Implement vector similarity search (top_k from config)
 - [x] Validate retrieved documents include metadata
-- [ ] Add debug option to print retrieved chunk sources
+- [x] Add debug option to print retrieved chunk sources
 
 ---
 
@@ -63,7 +63,7 @@ Implement a fully functional Retrieval-Augmented Generation (RAG) pipeline, enab
 - [x] Handle ingestion of unreadable/corrupt files
 - [x] Gracefully skip empty text extractions
 - [x] Warn if no relevant chunks found
-- [ ] Ensure question embedding does not crash on empty query
+- [x] Ensure question embedding does not crash on empty query
 
 ---
 

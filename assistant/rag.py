@@ -127,7 +127,7 @@ def _retrieve(query: str, cfg: Config, top_k: int) -> List[Tuple[str, dict]]:
     return list(zip(docs, metas))
 
 
-def answer_question(question: str, cfg: Config) -> str:
+def answer_question(question: str, cfg: Config, debug: bool = False) -> str:
     """Answer a user question using retrieved context and a language model."""
     top_k = cfg.rag.get("top_k", 5)
     model = cfg.model.get("name", "llama3")
@@ -137,6 +137,9 @@ def answer_question(question: str, cfg: Config) -> str:
     if not retrieved:
         return "I couldn't find any relevant content in the vector store."
 
+    if debug:
+        print(f"[DEBUG] Retrieved {len(retrieved)} chunks:")
+
     context_parts: List[str] = []
     source_info: List[str] = []
     for doc, meta in retrieved:
@@ -144,6 +147,10 @@ def answer_question(question: str, cfg: Config) -> str:
         src = meta.get("source") if meta else None  # type: ignore[arg-type]
         if src:
             source_info.append(src)
+            if debug:
+                idx = meta.get("chunk_index") if meta else None  # type: ignore[arg-type]
+                suffix = f" (chunk {idx})" if idx is not None else ""
+                print(f"[DEBUG] {src}{suffix}")
     context_str = "\n\n---\n\n".join(context_parts)
     sources = sorted(set(source_info))
     sources_str = "\n".join(sources)

@@ -63,6 +63,11 @@ def build_parser() -> argparse.ArgumentParser:
         required=True,
         help="The question to ask over the ingested documents",
     )
+    ask.add_argument(
+        "--debug",
+        action="store_true",
+        help="Print retrieved chunk sources for debugging",
+    )
 
     return parser
 
@@ -92,6 +97,6 @@ def main() -> None:
 
     elif args.command == "ask":
         # Ask a question over ingested content
-        answer = answer_question(args.question, cfg)
+        answer = answer_question(args.question, cfg, debug=args.debug)
         print("\n=== Answer ===\n")
         print(answer)
