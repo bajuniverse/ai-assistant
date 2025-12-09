@@ -72,14 +72,14 @@ Deliver a functional text-file summarisation pipeline for PDF, DOCX, MD, TXT via
 ## 7. Chunking (`assistant/chunking.py`)
 - [x] Implement `chunk_text(text, max_chars, overlap)`
 - [x] Ensure overlap logic works (via character slicing; untested)
-- [ ] Test chunk output on long text
+- [x] Test chunk output on long text (unit test in `tests/test_chunking.py`)
 
 ---
 
 ## 8. LLM Wrapper (`assistant/llm/ollama_client.py`)
 - [x] Implement `chat(prompt, model, temperature)`
 - [x] Add optional system prompt
-- [ ] Test call with simple prompt
+- [x] Test call with simple prompt (unit test in `tests/test_ollama_client.py`)
 
 ---
 
