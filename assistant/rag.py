@@ -51,6 +51,14 @@ def _get_chroma_collection(cfg: Config):
     return collection
 
 
+def _clear_existing_for_source(collection, source: Path) -> None:
+    """Remove any existing entries for a given source path to avoid duplication on re-ingest."""
+    try:
+        collection.delete(where={"source": str(source)})
+    except Exception as exc:
+        print(f"[WARN] Could not clear existing entries for {source}: {exc}")
+
+
 def ingest_folder(folder: Path, cfg: Config) -> None:
     """Ingest all supported files in a folder into the vector store."""
     collection = _get_chroma_collection(cfg)
@@ -70,9 +78,11 @@ def ingest_folder(folder: Path, cfg: Config) -> None:
         except Exception as e:
             print(f"[ERROR] Failed to parse {f}: {e}")
             continue
+        # Delete existing entries for this source so repeated ingestion does not duplicate.
+        _clear_existing_for_source(collection, f)
         chunks = chunk_text(text, max_chars=chunk_size, overlap=overlap)
         for idx, ch in enumerate(chunks):
-            ids.append(f"{f.name}-{idx}")
+            ids.append(f"{f.resolve()}#{idx}")
             docs.append(ch)
             metadatas.append({"source": str(f), "chunk_index": idx})
 

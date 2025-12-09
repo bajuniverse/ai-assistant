@@ -17,7 +17,7 @@ Implement a fully functional Retrieval-Augmented Generation (RAG) pipeline, enab
 - [x] Implement ingestion entry function `ingest_folder()`
 - [x] Parse all supported files (PDF, DOCX, MD, TXT, OCR images)
 - [x] Convert extracted text into chunks using existing chunker
-- [x] Embed each chunk into vector format
+- [X] Embed each chunk into vector format
 - [x] Store (id, document text, metadata, embedding) in Chroma
 - [x] Ensure ingestion can run repeatedly without duplication issues
 - [x] Add helpful ingestion logging (file count, chunk count, etc.)

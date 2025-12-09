@@ -1,4 +1,4 @@
-Here is a concise summary of the Philippine National Holiday Calendar for 2026:
+Here is a concise summary of the Philippine National Holiday Calendar for 2026 in clear bullet points:
 
 **Regular Holidays:**
 
@@ -16,10 +16,11 @@ Here is a concise summary of the Philippine National Holiday Calendar for 2026:
 * April 3, 2026 - Good Friday
 * May 1, 2026 - Labor Day (also a regular holiday)
 * June 12, 2026 - Independence Day (also a regular holiday)
+* August 21, 2026 - Ninoy Aquino Day
 * November 1, 2026 - All Saints' Day
 * November 2, 2026 - All Souls' Day
 * December 8, 2026 - Feast of the Immaculate Conception of Mary
-* December 24, 2026 - Christmas Eve (also an additional special non-working day)
+* December 24, 2026 - Christmas Eve
 * December 31, 2026 - Last Day of the Year
 
 **To Be Announced (TBA):**
