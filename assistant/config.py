@@ -26,11 +26,28 @@ class Config:
         with open(cfg_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f) or {}
 
-        # Extract known sections, defaulting to empty dicts if missing.
-        self.model: dict = data.get("model", {})
-        self.rag: dict = data.get("rag", {})
-        self.paths: dict = data.get("paths", {})
-        self.logging: dict = data.get("logging", {})
+        # Base defaults used if keys are absent from the YAML file.
+        defaults = {
+            "model": {"name": "llama3", "temperature": 0.2},
+            "rag": {
+                "embedding_model": "all-minilm",
+                "top_k": 5,
+                "chunk_size": 1500,
+                "chunk_overlap": 200,
+            },
+            "paths": {
+                "data_folder": "./data",
+                "output_folder": "./outputs",
+                "vector_store": "./vector_store",
+            },
+            "logging": {"level": "INFO"},
+        }
+
+        # Merge defaults with any provided values from YAML.
+        self.model: dict = {**defaults["model"], **data.get("model", {})}
+        self.rag: dict = {**defaults["rag"], **data.get("rag", {})}
+        self.paths: dict = {**defaults["paths"], **data.get("paths", {})}
+        self.logging: dict = {**defaults["logging"], **data.get("logging", {})}
 
 
 def get_config(path: str | None = None) -> Config:

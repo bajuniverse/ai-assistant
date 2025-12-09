@@ -87,8 +87,7 @@ python main.py ask --question "What does the report say about sales?"
 The assistant reads settings from `config.yaml`. You can adjust:
 
 - **model**: Name of the Ollama model and sampling temperature.
-- **rag**: Embedding model (placeholder), number of top results, chunk size
-  and overlap.
+- **rag**: Embedding model (placeholder), number of top results, chunk size and overlap.
 - **paths**: Data, output, and vector store directories.
 - **logging**: Log level.
 

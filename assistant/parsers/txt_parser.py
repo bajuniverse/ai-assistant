@@ -17,4 +17,7 @@ def extract_txt_text(path: Path) -> str:
     Returns:
         The contents of the file as a string.
     """
-    return path.read_text(encoding="utf-8", errors="ignore")
+    try:
+        return path.read_text(encoding="utf-8", errors="ignore")
+    except Exception as exc:
+        raise RuntimeError(f"Failed to read text file {path}: {exc}") from exc

@@ -17,4 +17,7 @@ def extract_md_text(path: Path) -> str:
     Returns:
         The raw content of the file.
     """
-    return path.read_text(encoding="utf-8", errors="ignore")
+    try:
+        return path.read_text(encoding="utf-8", errors="ignore")
+    except Exception as exc:
+        raise RuntimeError(f"Failed to read Markdown file {path}: {exc}") from exc

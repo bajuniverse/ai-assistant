@@ -28,9 +28,18 @@ def extract_pdf_text(path: Path) -> str:
             "pymupdf (fitz) not installed. Install with `pip install pymupdf`."
         ) from exc
 
-    doc = fitz.open(path)
+    try:
+        doc = fitz.open(path)
+    except Exception as exc:
+        raise RuntimeError(f"Failed to read PDF {path}: {exc}") from exc
+
     texts: list[str] = []
-    for page in doc:
-        texts.append(page.get_text())
-    doc.close()
+    try:
+        for page in doc:
+            texts.append(page.get_text())
+    except Exception as exc:
+        raise RuntimeError(f"Failed to extract text from PDF {path}: {exc}") from exc
+    finally:
+        doc.close()
+
     return "\n".join(texts)

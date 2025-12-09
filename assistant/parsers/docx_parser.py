@@ -28,5 +28,12 @@ def extract_docx_text(path: Path) -> str:
             "python-docx not installed. Install with `pip install python-docx`."
         ) from exc
 
-    doc = docx.Document(path)
-    return "\n".join(paragraph.text for paragraph in doc.paragraphs)
+    try:
+        doc = docx.Document(path)
+    except Exception as exc:
+        raise RuntimeError(f"Failed to read DOCX {path}: {exc}") from exc
+
+    try:
+        return "\n".join(paragraph.text for paragraph in doc.paragraphs)
+    except Exception as exc:
+        raise RuntimeError(f"Failed to extract text from DOCX {path}: {exc}") from exc
