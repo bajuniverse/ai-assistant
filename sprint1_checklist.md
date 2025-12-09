@@ -90,20 +90,20 @@ Deliver a functional text-file summarisation pipeline for PDF, DOCX, MD, TXT via
 - [x] Write summaries to `/outputs/*.summary.md`
 - [x] Implement folder summarisation
 - [x] Handle errors gracefully (folder loop catches exceptions and logs)
-- [ ] Test full summarisation pipeline
+- [x] Test full summarisation pipeline (unit test in `tests/test_summarizer.py`)
 
 ---
 
 ## 10. Testing & Validation
 - [x] Create `/data` folder with sample files:
-  - [ ] 1 PDF
-  - [ ] 1 DOCX
-  - [ ] 1 MD
+  - [x] 1 PDF
+  - [x] 1 DOCX
+  - [x] 1 MD
   - [x] 1 TXT
-- [ ] Run:
-  - [ ] `python main.py summary --folder ./data`
+- [x] Run:
+  - [x] `python main.py summary --folder ./data`
 - [x] Verify summary files generated (see `outputs/sample.txt.summary.md`)
-- [ ] Test corrupted/empty files
+- [x] Test corrupted/empty files (unit tests in `tests/test_parsers.py`)
 
 ---
 
